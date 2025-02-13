@@ -15,15 +15,47 @@ const options = {
     .then(data => {
       console.log("Trending:");
         data.results.forEach((film) => {
-            console.log(film.title)
-            filmCard = document.createElement("div");
-            filmCard.classList.add("movie-card");
-            filmCard.innerHTML = `
-              <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
-              <h2 class="movie-title">${film.title}</h2>
-            `
-            moviesCardsContainer.appendChild(filmCard);
+
+          fetch(`https://api.themoviedb.org/3/movie/${film.id}/watch/providers`, options)
+            .then(res => res.json())
+            .then(data => {
+              const providers = data.results[country].flatrate;
+              providers.forEach((provider) => {
+                if(provider){
+                  console.log("Streaming: ", provider.provider_name, "Filme: ", film.title);
+                  filmCard = document.createElement("div");
+                  filmCard.classList.add("movie-card");
+                  filmCard.innerHTML = `
+                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                    <h2 class="movie-title">${film.title}</h2>
+                    <p>${provider.provider_name}</p>
+                  `
+                  moviesCardsContainer.appendChild(filmCard);
+                }
+                else{
+                  console.log("o Filme: ", film.title, "Não está disponível em serviço de streaming")
+                }
+              })
+            })
+            .catch(err => console.error(err));
+          
         });
+
+        const btnLeftCarrossel = document.querySelector(".carrossel-left-button");
+        const btnRightCarrossel = document.querySelector(".carrossel-right-button");
+        const carrosselContainer = document.querySelector(".movies-cards-container");
+
+        setTimeout(3000);
+
+        const movieCards = document.querySelectorAll(".movie-card");
+
+        let sliderTranslation = 0;
+
+        numberOfMovies = movieCards.length;
+
+        console.log(numberOfMovies);
+
+
     })
     .catch(err => console.error(err));
 
@@ -42,4 +74,3 @@ const options = {
       })
     })
     .catch(err => console.error(err));
-    
