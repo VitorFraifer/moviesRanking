@@ -10,32 +10,39 @@ const options = {
     }
   };
   
-  fetch('https://api.themoviedb.org/3/trending/movie/week', options)
+  fetch('https://api.themoviedb.org/3/trending/movie/week', options) //Endpoint dos filmes mais vistos da ultima semana
     .then(res => res.json())
     .then(data => {
-      console.log("Trending:");
         data.results.forEach((film) => {
 
-          fetch(`https://api.themoviedb.org/3/movie/${film.id}/watch/providers`, options)
+          fetch(`https://api.themoviedb.org/3/movie/${film.id}/watch/providers`, options) //Endpoint Serviços de Streaming
             .then(res => res.json())
             .then(data => {
               const providers = data.results[country].flatrate;
+              let streamingsNames = [];
+              let streamingsLogo = [];
+
               providers.forEach((provider) => {
                 if(provider){
-                  console.log("Streaming: ", provider.provider_name, "Filme: ", film.title);
-                  filmCard = document.createElement("div");
-                  filmCard.classList.add("movie-card");
-                  filmCard.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
-                    <h2 class="movie-title">${film.title}</h2>
-                    <p>${provider.provider_name}</p>
-                  `
-                  moviesCardsContainer.appendChild(filmCard);
-                }
-                else{
-                  console.log("o Filme: ", film.title, "Não está disponível em serviço de streaming")
+                  streamingsNames.push(provider.provider_name)
+                  streamingsLogo.push(`https://image.tmdb.org/t/p/w500${provider.logo_path}`);
                 }
               })
+
+              let filmCard = document.createElement("div");
+              filmCard.classList.add("movie-card");
+              filmCard.innerHTML = `
+                <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                <h2 class="movie-title">${film.title}</h2>
+                <p>${streamingsNames}</p>
+                <div class="streaming-services">
+                  ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
+                </div 
+              `
+              moviesCardsContainer.appendChild(filmCard);
+
+              console.log("NOME DOS STREAMINGS DO FILME: ", streamingsNames, "Filme", film.title)
+              console.log("LOGO DOS STREAMINGS DO FILME: ", streamingsLogo, "Filme", film.title)
             })
             .catch(err => console.error(err));
           
@@ -70,7 +77,6 @@ const options = {
     .then(data => {
       const providers = data.results[country].flatrate;
       providers.forEach((provider) => {
-        console.log(provider.provider_name)
       })
     })
     .catch(err => console.error(err));
