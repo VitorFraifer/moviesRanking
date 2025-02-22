@@ -1,6 +1,8 @@
 const moviesCardsContainer = document.querySelector(".movies-cards-container");
+const mainContainer = document.querySelector("main")
 
 const API_KEY = "c25121898fe63b4eba4f1b1cdf23babf";
+const country = "BR"; // Definir o país para obter os serviços disponíveis
 
 const options = {
     method: 'GET',
@@ -34,7 +36,6 @@ const options = {
               filmCard.innerHTML = `
                 <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
                 <h2 class="movie-title">${film.title}</h2>
-                <p>${streamingsNames}</p>
                 <div class="streaming-services">
                   ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
                 </div 
@@ -43,6 +44,14 @@ const options = {
 
               console.log("NOME DOS STREAMINGS DO FILME: ", streamingsNames, "Filme", film.title)
               console.log("LOGO DOS STREAMINGS DO FILME: ", streamingsLogo, "Filme", film.title)
+
+              fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
+              .then(res => res.json())
+              .then(data => {
+                console.log("FILM DETAIL: ", data)
+              })
+
+             
             })
             .catch(err => console.error(err));
           
@@ -51,8 +60,6 @@ const options = {
         const btnLeftCarrossel = document.querySelector(".carrossel-left-button");
         const btnRightCarrossel = document.querySelector(".carrossel-right-button");
         const carrosselContainer = document.querySelector(".movies-cards-container");
-
-        setTimeout(3000);
 
         const movieCards = document.querySelectorAll(".movie-card");
 
@@ -68,15 +75,24 @@ const options = {
 
   
 
+fetch("https://api.themoviedb.org/3/genre/movie/list", options)
+.then(res => res.json())
+.then(data => {
+  const listOfGenres = data.genres;
 
-  const movieId = 550; // Exemplo: Clube da Luta
-  const country = "BR"; // Definir o país para obter os serviços disponíveis
-  
-  fetch(`https://api.themoviedb.org/3/movie/${movieId}/watch/providers`, options)
-    .then(res => res.json())
-    .then(data => {
-      const providers = data.results[country].flatrate;
-      providers.forEach((provider) => {
-      })
-    })
-    .catch(err => console.error(err));
+  listOfGenres.forEach((genre) => {
+    console.log("genero: ", genre.name)
+    const genreRow = document.createElement("section");
+    genreRow.classList.add(`${genre.name}`);
+    genreRow.innerHTML = `
+      <h1>${genre.name}</h1>
+      <button class="carrossel-left-button"><</button>
+      <div class="movies-cards-container">
+          <!-- Here will be loaded the movies cards via javascript -->
+      </div>
+      <button class="carrossel-right-button">></button>
+    `
+    console.log("div do genero: ", genreRow);
+    mainContainer.appendChild(genreRow)
+  })
+})
