@@ -83,9 +83,6 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
               })
               moviesCardsContainer.appendChild(filmCard);
 
-              console.log("NOME DOS STREAMINGS DO FILME: ", streamingsNames, "Filme", film.title)
-              console.log("LOGO DOS STREAMINGS DO FILME: ", streamingsLogo, "Filme", film.title)
-
               fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
               .then(res => res.json())
               .then(data => {
