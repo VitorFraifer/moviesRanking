@@ -11,8 +11,36 @@ const options = {
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMjUxMjE4OThmZTYzYjRlYmE0ZjFiMWNkZjIzYmFiZiIsIm5iZiI6MTczOTIzODU1NS43NDMsInN1YiI6IjY3YWFhYzliNTE4NDA4YWJmOGJiMTlmNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Ri7OK4b1WQZhKq4fWx8cV5h8pGgDqNiGrmFU5YDqMw4'
     }
   };
-  
-  fetch('https://api.themoviedb.org/3/trending/movie/week', options) //Endpoint dos filmes mais vistos da ultima semana
+
+fetch("https://api.themoviedb.org/3/genre/movie/list", options)
+.then(res => res.json())
+.then(data => {
+  const listOfGenres = data.genres;
+
+  listOfGenres.forEach((genre) => {
+    console.log("genero: ", genre.name)
+    const genreRow = document.createElement("section");
+    genreRow.classList.add(genre.name.replace(/\s+/g, "-").toLowerCase());
+    genreRow.classList.add(genre.id);
+    genreRow.classList.add("category-row");
+    genreRow.id = genre.id
+    genreRow.innerHTML = `
+      <h1>${genre.name}</h1>
+      <button class="carrossel-left-button"><</button>
+      <div class="movies-cards-container">
+          <!-- Here will be loaded the movies cards via javascript -->
+      </div>
+      <button class="carrossel-right-button">></button>
+    `
+    console.log("div do genero: ", genreRow);
+    mainContainer.appendChild(genreRow)
+  })
+
+  generateMovies();
+})
+
+  function generateMovies(){
+    fetch('https://api.themoviedb.org/3/trending/movie/week', options) //Endpoint dos filmes mais vistos da ultima semana
     .then(res => res.json())
     .then(data => {
         data.results.forEach((film) => {
@@ -38,8 +66,21 @@ const options = {
                 <h2 class="movie-title">${film.title}</h2>
                 <div class="streaming-services">
                   ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
-                </div 
+                </div>
               `
+              film.genre_ids.forEach((genreID) => {
+                let filmCard = document.createElement("div");
+                filmCard.classList.add("movie-card");
+                filmCard.innerHTML = `
+                  <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                  <h2 class="movie-title">${film.title}</h2>
+                  <div class="streaming-services">
+                    ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
+                  </div>
+                `
+                const secaoGenero = document.getElementById(`${genreID}`);
+                secaoGenero.querySelector(".movies-cards-container").appendChild(filmCard)
+              })
               moviesCardsContainer.appendChild(filmCard);
 
               console.log("NOME DOS STREAMINGS DO FILME: ", streamingsNames, "Filme", film.title)
@@ -72,27 +113,11 @@ const options = {
 
     })
     .catch(err => console.error(err));
+  }
 
   
 
-fetch("https://api.themoviedb.org/3/genre/movie/list", options)
-.then(res => res.json())
-.then(data => {
-  const listOfGenres = data.genres;
 
-  listOfGenres.forEach((genre) => {
-    console.log("genero: ", genre.name)
-    const genreRow = document.createElement("section");
-    genreRow.classList.add(`${genre.name}`);
-    genreRow.innerHTML = `
-      <h1>${genre.name}</h1>
-      <button class="carrossel-left-button"><</button>
-      <div class="movies-cards-container">
-          <!-- Here will be loaded the movies cards via javascript -->
-      </div>
-      <button class="carrossel-right-button">></button>
-    `
-    console.log("div do genero: ", genreRow);
-    mainContainer.appendChild(genreRow)
-  })
-})
+  
+
+

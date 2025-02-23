@@ -34,6 +34,7 @@ nav ul{
 .category-row{
     width: 100%;
     overflow: hidden;
+    position: relative;
 }
 
 main{
@@ -61,4 +62,15 @@ main{
 .streaming-services{
     display: flex;
     gap: 5px;
+}
+
+.carrossel-left-button{
+    position: absolute;
+    top: 50%;
+}
+
+.carrossel-right-button{
+    position: absolute;
+    top: 50%;
+    right: 0;
 }
