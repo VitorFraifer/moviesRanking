@@ -37,38 +37,33 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
   })
 
   generateMovies();
+  
 })
 
+  const totalPagesOfFilms = 10;
+
   function generateMovies(){
-    fetch('https://api.themoviedb.org/3/trending/movie/week', options) //Endpoint dos filmes mais vistos da ultima semana
-    .then(res => res.json())
-    .then(data => {
-        data.results.forEach((film) => {
-
-          fetch(`https://api.themoviedb.org/3/movie/${film.id}/watch/providers`, options) //Endpoint Serviços de Streaming
-            .then(res => res.json())
-            .then(data => {
-              const providers = data.results[country].flatrate;
-              let streamingsNames = [];
-              let streamingsLogo = [];
-
-              providers.forEach((provider) => {
-                if(provider){
-                  streamingsNames.push(provider.provider_name)
-                  streamingsLogo.push(`https://image.tmdb.org/t/p/w500${provider.logo_path}`);
-                }
-              })
-
-              let filmCard = document.createElement("div");
-              filmCard.classList.add("movie-card");
-              filmCard.innerHTML = `
-                <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
-                <h2 class="movie-title">${film.title}</h2>
-                <div class="streaming-services">
-                  ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
-                </div>
-              `
-              film.genre_ids.forEach((genreID) => {
+    for (let page = 0; page < totalPagesOfFilms; page++) {
+      fetch(`https://api.themoviedb.org/3/trending/movie/week?page=${page}`, options) //Endpoint dos filmes mais vistos da ultima semana
+      .then(res => res.json())
+      .then(data => {
+        console.log("DADOS API",data)
+          data.results.forEach((film) => {
+  
+            fetch(`https://api.themoviedb.org/3/movie/${film.id}/watch/providers`, options) //Endpoint Serviços de Streaming
+              .then(res => res.json())
+              .then(data => {
+                const providers = data.results[country].flatrate;
+                let streamingsNames = [];
+                let streamingsLogo = [];
+  
+                providers.forEach((provider) => {
+                  if(provider){
+                    streamingsNames.push(provider.provider_name)
+                    streamingsLogo.push(`https://image.tmdb.org/t/p/w500${provider.logo_path}`);
+                  }
+                })
+  
                 let filmCard = document.createElement("div");
                 filmCard.classList.add("movie-card");
                 filmCard.innerHTML = `
@@ -78,38 +73,50 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                     ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
                   </div>
                 `
-                const secaoGenero = document.getElementById(`${genreID}`);
-                secaoGenero.querySelector(".movies-cards-container").appendChild(filmCard)
+                film.genre_ids.forEach((genreID) => {
+                  let filmCard = document.createElement("div");
+                  filmCard.classList.add("movie-card");
+                  filmCard.innerHTML = `
+                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                    <h2 class="movie-title">${film.title}</h2>
+                    <div class="streaming-services">
+                      ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
+                    </div>
+                  `
+                  const secaoGenero = document.getElementById(`${genreID}`);
+                  secaoGenero.querySelector(".movies-cards-container").appendChild(filmCard)
+                })
+                moviesCardsContainer.appendChild(filmCard);
+  
+                fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
+                .then(res => res.json())
+                .then(data => {
+                  console.log("FILM DETAIL: ", data)
+                })
+  
+               
               })
-              moviesCardsContainer.appendChild(filmCard);
-
-              fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
-              .then(res => res.json())
-              .then(data => {
-                console.log("FILM DETAIL: ", data)
-              })
-
-             
-            })
-            .catch(err => console.error(err));
-          
-        });
-
-        const btnLeftCarrossel = document.querySelector(".carrossel-left-button");
-        const btnRightCarrossel = document.querySelector(".carrossel-right-button");
-        const carrosselContainer = document.querySelector(".movies-cards-container");
-
-        const movieCards = document.querySelectorAll(".movie-card");
-
-        let sliderTranslation = 0;
-
-        numberOfMovies = movieCards.length;
-
-        console.log(numberOfMovies);
-
-
-    })
-    .catch(err => console.error(err));
+              .catch(err => console.error(err));
+            
+          });
+  
+          const btnLeftCarrossel = document.querySelector(".carrossel-left-button");
+          const btnRightCarrossel = document.querySelector(".carrossel-right-button");
+          const carrosselContainer = document.querySelector(".movies-cards-container");
+  
+          const movieCards = document.querySelectorAll(".movie-card");
+  
+          let sliderTranslation = 0;
+  
+          numberOfMovies = movieCards.length;
+  
+          console.log(numberOfMovies);
+  
+  
+      })
+      .catch(err => console.error(err));
+    }
+   
   }
 
   
