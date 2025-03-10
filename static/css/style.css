@@ -50,6 +50,7 @@ main{
 .movies-cards-container{
     display: flex;
     gap: 25px;
+    transition: 0.3s ease-in-out;
 }
 
 .movie-card img{
@@ -71,6 +72,7 @@ main{
 .carrossel-left-button{
     position: absolute;
     top: 50%;
+    z-index: 100;
 }
 
 .carrossel-right-button{

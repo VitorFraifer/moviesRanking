@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../static/css/reset.css">
     <link rel="stylesheet" href="../static/css/style.css">
     <script src="../static/js/api.js" defer></script>
+    <script src="../static/js/carrossel.js" defer></script>
 </head>
 <body>
     <header>
@@ -26,11 +27,11 @@
     <main>
         <section class="category-row">
             <h1>Trending Movies of the past Week</h1>
-            <button class="carrossel-left-button"><</button>
+            <button class="carrossel-left-button" onclick="slideSection(this)"><</button>
             <div class="movies-cards-container">
                 <!-- Here will be loaded the movies cards via javascript -->
             </div>
-            <button class="carrossel-right-button">></button>
+            <button class="carrossel-right-button" onclick="slideSection(this)">></button>
         </section>
     </main>
     

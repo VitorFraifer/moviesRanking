@@ -26,11 +26,11 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
     genreRow.id = genre.id
     genreRow.innerHTML = `
       <h1>${genre.name}</h1>
-      <button class="carrossel-left-button"><</button>
+      <button class="carrossel-left-button" onclick="slideSection(this)"><</button>
       <div class="movies-cards-container">
           <!-- Here will be loaded the movies cards via javascript -->
       </div>
-      <button class="carrossel-right-button">></button>
+      <button class="carrossel-right-button" onclick="slideSection(this)">></button>
     `
     console.log("div do genero: ", genreRow);
     mainContainer.appendChild(genreRow)
