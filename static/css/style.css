@@ -54,7 +54,7 @@ main{
 }
 
 .movie-card img{
-    width: 21vw;
+    width: fit-content;
     max-height: 450px;
 }
 

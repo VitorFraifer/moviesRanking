@@ -40,7 +40,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
   
 })
 
-  const totalPagesOfFilms = 10;
+  const totalPagesOfFilms = 15;
 
   function generateMovies(){
     for (let page = 0; page < totalPagesOfFilms; page++) {
@@ -119,6 +119,23 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
    
   }
 
+  function hideEmptySections(){
+    const allSections = document.querySelectorAll("section");
+
+    allSections.forEach((section) => {
+      const filmRow = section.querySelector(".movies-cards-container");
+      console.log("teste", filmRow)
+      if(filmRow.childElementCount == 0){
+        console.log("test")
+        section.style.display = "none";
+      }
+    })
+  }
+
+  //Calling the function to hide empty section as soon as the page content loads
+  window.addEventListener("DOMContentLoaded", () => {
+    setTimeout(hideEmptySections, 5000)
+  })
   
 
 
