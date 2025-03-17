@@ -58,36 +58,26 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                 let streamingsLogo = [];
   
                 providers.forEach((provider) => {
-                  if(provider){
-                    console.log(provider.provider_name)
+                  if(provider.provider_name == "Disney Plus"){
                     streamingsNames.push(provider.provider_name)
                     streamingsLogo.push(`https://image.tmdb.org/t/p/w500${provider.logo_path}`);
-                  }
+
+                    film.genre_ids.forEach((genreID) => {
+                    let filmCard = document.createElement("div");
+                    filmCard.classList.add("movie-card");
+                    filmCard.innerHTML = `
+                        <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                        <h2 class="movie-title">${film.title}</h2>
+                        <div class="streaming-services">
+                        ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
+                        </div>
+                    `
+                    const secaoGenero = document.getElementById(`${genreID}`);
+                    secaoGenero.querySelector(".movies-cards-container").appendChild(filmCard)
+                    })
+                    moviesCardsContainer.appendChild(filmCard);
+                    }
                 })
-  
-                let filmCard = document.createElement("div");
-                filmCard.classList.add("movie-card");
-                filmCard.innerHTML = `
-                  <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
-                  <h2 class="movie-title">${film.title}</h2>
-                  <div class="streaming-services">
-                    ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
-                  </div>
-                `
-                film.genre_ids.forEach((genreID) => {
-                  let filmCard = document.createElement("div");
-                  filmCard.classList.add("movie-card");
-                  filmCard.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
-                    <h2 class="movie-title">${film.title}</h2>
-                    <div class="streaming-services">
-                      ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
-                    </div>
-                  `
-                  const secaoGenero = document.getElementById(`${genreID}`);
-                  secaoGenero.querySelector(".movies-cards-container").appendChild(filmCard)
-                })
-                moviesCardsContainer.appendChild(filmCard);
   
                 fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
                 .then(res => res.json())
@@ -138,6 +128,12 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
     setTimeout(hideEmptySections, 5000)
   })
   
+  
+
+
+  
+
+
 
 
   
