@@ -21,3 +21,4 @@ function slideSection(button){
     console.log("Deslocation: ", deslocation)
   }
 }
+

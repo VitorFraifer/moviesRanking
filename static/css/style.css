@@ -58,6 +58,13 @@ main{
     transition: 0.3s ease-in-out;
 }
 
+.movie-card{
+    min-width: fit-content;
+    height: auto;
+    background-color: transparent;
+    flex-shrink: 0; /* Impede que o item diminua */
+}
+
 .movie-card img{
     width: fit-content;
     max-height: 450px;

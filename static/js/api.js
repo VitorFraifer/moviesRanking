@@ -89,16 +89,11 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                 })
                 moviesCardsContainer.appendChild(filmCard);
   
-                fetch(`https://api.themoviedb.org/3/movie/${film.id}`, options)
-                .then(res => res.json())
-                .then(data => {
-                  console.log("FILM DETAIL: ", data)
-                })
+                
   
                
               })
               .catch(err => console.error(err));
-            
           });
   
           const btnLeftCarrossel = document.querySelector(".carrossel-left-button");
