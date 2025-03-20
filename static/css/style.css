@@ -58,6 +58,22 @@ main{
     transition: 0.3s ease-in-out;
 }
 
+.swiper-wrapper {
+    display: flex;
+  }
+  
+.swiper-slide {
+flex-shrink: 0;
+width: auto;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 25%;
+    padding: 10px;
+}
+
 .movie-card{
     min-width: fit-content;
     height: auto;

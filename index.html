@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviesRanking</title>
+    
+    <!-- Reset e estilos -->
     <link rel="stylesheet" href="/static/css/reset.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/static/js/api.js" defer></script>
     <script src="/static/js/carrossel.js" defer></script>
 </head>
@@ -26,15 +32,22 @@
     </header>
 
     <main>
+        <!-- Exemplo de uma category-row inicial -->
         <section class="category-row">
             <h1>Trending Movies of the past Week</h1>
-            <button class="carrossel-left-button" onclick="slideSection(this)"><</button>
-            <div class="movies-cards-container">
-                <!-- Here will be loaded the movies cards via javascript -->
+            
+            <div class="swiper mySwiper">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+          
+              <div class="swiper-wrapper movies-cards-container">
+                <!-- Cards de filme serão inseridos aqui via API.js -->
+              </div>
             </div>
-            <button class="carrossel-right-button" onclick="slideSection(this)">></button>
-        </section>
+          </section>
+          
+
+        <!-- Outras sections vão ser geradas dinamicamente no JS -->
     </main>
-    
 </body>
 </html>

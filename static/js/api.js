@@ -26,11 +26,16 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
     genreRow.id = genre.id
     genreRow.innerHTML = `
       <h1>${genre.name}</h1>
-      <button class="carrossel-left-button" onclick="slideSection(this)"><</button>
-      <div class="movies-cards-container">
-          <!-- Here will be loaded the movies cards via javascript -->
-      </div>
-      <button class="carrossel-right-button" onclick="slideSection(this)">></button>
+
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper movies-cards-container">
+        <!-- Aqui serão adicionados os cards via JS -->
+    </div>
+
+    <!-- Botões de navegação dentro da section/swiper -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
     `
     console.log("div do genero: ", genreRow);
     mainContainer.appendChild(genreRow)
@@ -67,6 +72,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
   
                 let filmCard = document.createElement("div");
                 filmCard.classList.add("movie-card");
+                filmCard.classList.add("swiper-slide");
                 filmCard.innerHTML = `
                   <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
                   <h2 class="movie-title">${film.title}</h2>
@@ -77,6 +83,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                 film.genre_ids.forEach((genreID) => {
                   let filmCard = document.createElement("div");
                   filmCard.classList.add("movie-card");
+                  filmCard.classList.add("swiper-slide");
                   filmCard.innerHTML = `
                     <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
                     <h2 class="movie-title">${film.title}</h2>
