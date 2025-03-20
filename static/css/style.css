@@ -117,4 +117,8 @@ main{
     .movie-card{
         min-width: unset;
     }
+
+    .movie-card img{
+        width: 100%;
+    }
 }
