@@ -62,8 +62,8 @@ main{
   }
   
 .swiper-slide {
-flex-shrink: 0;
-width: auto;
+    flex-shrink: 0;
+    width: auto;
 }
 
 .swiper-button-next:after, .swiper-button-prev:after {
@@ -111,4 +111,10 @@ width: auto;
 .category-row h1{
     font-size: 30px;
     font-weight: 700;
+}
+
+@media screen and (max-width: 500px) {
+    .movie-card{
+        min-width: unset;
+    }
 }

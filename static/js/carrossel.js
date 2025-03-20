@@ -50,7 +50,7 @@ setTimeout(() => {
         // Desktop → 4 slides por vez
         900: {
           slidesPerView: 4,
-          slidesPerGroup: 4,
+          slidesPerGroup: 1,
         },
       },
     });
