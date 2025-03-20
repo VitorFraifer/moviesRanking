@@ -23,32 +23,39 @@
 // }
 
 setTimeout(() => {
-  // Seleciona todas as instâncias de Swiper
-const swipers = document.querySelectorAll('.mySwiper');
+  const swipers = document.querySelectorAll('.mySwiper');
 
-// Para cada container, cria um Swiper individual
-swipers.forEach((swiperContainer) => {
-  new Swiper(swiperContainer, {
-    direction: 'horizontal',
-    loop: true,
-    spaceBetween: 10,
-    slidesPerGroup: 1,
-
-    navigation: {
-      nextEl: swiperContainer.querySelector('.swiper-button-next'),
-      prevEl: swiperContainer.querySelector('.swiper-button-prev'),
-    },
-
-    breakpoints: {
-      0: {
-        slidesPerView: 1,
+  swipers.forEach((swiperContainer) => {
+    new Swiper(swiperContainer, {
+      direction: 'horizontal',
+      loop: true,
+      spaceBetween: 10,
+  
+      navigation: {
+        nextEl: swiperContainer.querySelector('.swiper-button-next'),
+        prevEl: swiperContainer.querySelector('.swiper-button-prev'),
       },
-      500: {
-        slidesPerView: 4,
-      }
-    }
+  
+      breakpoints: {
+        // Mobile: até 500px → 1 slide por vez
+        0: {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+        },
+        // Tablets → 2 slides por vez
+        501: {
+          slidesPerView: 2,
+          slidesPerGroup: 1,
+        },
+        // Desktop → 4 slides por vez
+        900: {
+          slidesPerView: 4,
+          slidesPerGroup: 4,
+        },
+      },
+    });
   });
-});
+  
  
 }, 3000)
 
