@@ -39,7 +39,7 @@ setTimeout(() => {
       breakpoints: {
         // Mobile: até 500px → 1 slide por vez
         0: {
-          slidesPerView: 1,
+          slidesPerView: 2,
           slidesPerGroup: 1,
         },
         // Tablets → 2 slides por vez
