@@ -121,16 +121,20 @@ main{
     display: flex;
 }
 
+.menu-sanduiche-container{
+    width: 70vw;
+}
+
 .menu-sanduiche-container ul{
     position: fixed;
     flex-direction: column;
-    left: 50%;
+    /* left: 50%; */
     top: 0;
     z-index: 20;
     height: 80vh;
     background-color: rgb(0, 0, 50);
     box-shadow: -5px 5px 25px white;
-    width: -webkit-fill-available;
+    width: 70%;
     align-items: center;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
