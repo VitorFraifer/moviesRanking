@@ -10,20 +10,34 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="../static/js/netflix.js" defer></script>
     <script src="../static/js/carrossel.js" defer></script>
+    <script src="/static/js/menu-sanduiche.js" defer></script>
 </head>
 <body>
     <header>
         <a href="../index.html"><img src="../static/img/logo.png"></a>
-        <nav>
+        <nav class="mobilegone">
             <ul>
                 <a href="../pages/netflix.html"><li>Netflix</li></a>
                 <a href="../pages/primevideo.html"><li>Prime Video</li></a>
                 <a href="../pages/disney.html"><li>Disney+</li></a>
-                <a href="../pages/hbo.html"><li>HBO Max</li></a>
+                <a href="../pages/hbo.html"><li>Max</li></a>
                 <a href="../pages/clarotv.html"><li>Claro Tv+</li></a>
             </ul>
         </nav>
+        <nav class="mobileonly menu-sanduiche-container">
+            <img src="/static/img/navmobile.svg">
+            <ul>
+                <button class="fechar-nav-button">X</button>
+                <a href="/pages/netflix.html"><li>Netflix</li></a>
+                <a href="/pages/primevideo.html"><li>Prime Video</li></a>
+                <a href="/pages/disney.html"><li>Disney+</li></a>
+                <a href="/pages/hbo.html"><li>Max</li></a>
+                <a href="/pages/clarotv.html"><li>Claro Tv+</li></a>
+            </ul>
+        </nav>
     </header>
+
+    <div class="modal-shadow"></div>
 
     <main>
         <section class="category-row">
