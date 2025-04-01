@@ -74,7 +74,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                 filmCard.classList.add("movie-card");
                 filmCard.classList.add("swiper-slide");
                 filmCard.innerHTML = `
-                  <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                  <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" loading="lazy">
                   <h2 class="movie-title">${film.title}</h2>
                   <div class="streaming-services">
                     ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}
@@ -85,7 +85,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
                   filmCard.classList.add("movie-card");
                   filmCard.classList.add("swiper-slide");
                   filmCard.innerHTML = `
-                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}">
+                    <img src="https://image.tmdb.org/t/p/w500${film.poster_path}" loading="lazy">
                     <h2 class="movie-title">${film.title}</h2>
                     <div class="streaming-services">
                       ${streamingsLogo.map((logo) => `<img src="${logo}" class="streaming-logo">`).join("")}

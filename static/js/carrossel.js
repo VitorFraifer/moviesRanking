@@ -29,6 +29,8 @@ setTimeout(() => {
     new Swiper(swiperContainer, {
       direction: 'horizontal',
       loop: true,
+      lazy: true,
+      watchSlidesProgress: true,
       spaceBetween: 10,
   
       navigation: {
