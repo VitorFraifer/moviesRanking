@@ -28,9 +28,9 @@ Foi usado HTML CSS para a estrutura e estilização da página e Javascript para
 Para usar rodar o projeto na sua maquina, basta clonar o repositório e abrir com a extensão Live Server
 
 
-## 📫 Contribuindo para <nome_do_projeto>
+## 📫 Contribuindo para o projeto
 
-Para contribuir com <nome_do_projeto>, siga estas etapas:
+Para contribuir com o projeto, siga estas etapas:
 
 1. Bifurque este repositório.
 2. Crie um branch: `git checkout -b <nome_branch>`.
