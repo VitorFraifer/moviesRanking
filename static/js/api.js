@@ -12,11 +12,12 @@ const options = {
     }
   };
 
+  //Endpoint que retorna todos os generos de filmes existentes
 fetch("https://api.themoviedb.org/3/genre/movie/list", options)
 .then(res => res.json())
 .then(data => {
   const listOfGenres = data.genres;
-
+  //Criando uma section para cada genero existente, nessa section serão renderizados os filmes daquele genero
   listOfGenres.forEach((genre) => {
     console.log("genero: ", genre.name)
     const genreRow = document.createElement("section");
@@ -41,11 +42,11 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
     mainContainer.appendChild(genreRow)
   })
 
-  generateMovies();
+  generateMovies(); //Adicionando os filmes dentro das sections de seus respectivos generos
   
 })
 
-  const totalPagesOfFilms = 15;
+  const totalPagesOfFilms = 15; // A API retorna 20 filmes por página. Visto que de todos os filmes, só serão retornados os que são disponibilizados em serviço de stream, pedi 15 páginas para totalizar um número satisfatório de filmes pra aplicação
 
   function generateMovies(){
     for (let page = 0; page < totalPagesOfFilms; page++) {
@@ -122,14 +123,12 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
    
   }
 
-  function hideEmptySections(){
+  function hideEmptySections(){ // As seções que não possuirem filmes não serão exibidas
     const allSections = document.querySelectorAll("section");
 
     allSections.forEach((section) => {
       const filmRow = section.querySelector(".movies-cards-container");
-      console.log("teste", filmRow)
       if(filmRow.childElementCount == 0){
-        console.log("test")
         section.style.display = "none";
       }
     })
@@ -137,7 +136,7 @@ fetch("https://api.themoviedb.org/3/genre/movie/list", options)
 
   //Calling the function to hide empty section as soon as the page content loads
   window.addEventListener("DOMContentLoaded", () => {
-    setTimeout(hideEmptySections, 5000)
+    setTimeout(hideEmptySections, 3000)
   })
   
 
